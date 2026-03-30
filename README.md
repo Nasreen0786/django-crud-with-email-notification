@@ -28,3 +28,7 @@ This is a Django-based web application that performs full CRUD (Create, Read, Up
 
 Username = tennis_club
 Password = Admin@12307862
+
+## 🛠️ Run the Project
+
+python manage.py runserver
