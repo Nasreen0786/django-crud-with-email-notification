@@ -1,0 +1,27 @@
+.logo-css{
+    width: 100px;
+}
+.carousel-inner{
+    height:500px;
+}
+.navbar-nav {
+    margin-left: auto;
+}
+.row .col-3 img{
+    margin: 3px;
+    height: 26%;
+}
+.explore-programs-program-title {
+    color: #e48039;
+    font-family: "IBM Plex Mono",monospace;
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 150%;
+    letter-spacing: 1.68px;
+    text-transform: uppercase;
+    margin-top: 16px;
+}
+p.program-description {
+    font-size: 12px;
+}

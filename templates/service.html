@@ -1,0 +1,28 @@
+
+{% extends "base.html" %}
+{% block title %}Service Page{% endblock title %}
+{% block body %}
+    <div class="container">
+        <h3 class="mt-5 mb-4 text-center">Add Data</h3>
+        <form method="post" action="{% url 'service' %}" enctype="multipart/form-data">
+            {% csrf_token %}
+            <div class="form-group row">
+                <label for="name">Enter Your Name</label>
+                    <input type="text" class="form-control" id="name" name="name" value="">
+            </div>
+            <div class="form-group">
+                <label for="email">Enter Your Email</label>
+                    <input type="email" class="form-control" id="email" name="email" value="">
+            </div>
+            <div class="form-group">
+                <label for="phone">Enter Your Phone Number</label>
+                    <input type="number" class="form-control" id="phone" name="phone" value="">
+            </div>
+            <div class="form-group">
+                <label for="file">Upload Image</label>
+                <input type="file" class="form-control" id="file" name="file" value="">
+            </div>
+            <button type="submit" class="btn btn-primary">Submit</button>
+        </form>
+    </div>
+{% endblock body %}

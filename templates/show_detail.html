@@ -1,0 +1,126 @@
+{% extends "base.html" %}
+{% block title %}show_detail Page{% endblock title %}
+{% block body %}
+    <div class="container mt-5">
+        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
+            Add Service
+        </button>
+        <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                    </div>
+                    <div class="modal-body">
+                        <form method="post" action="{% url 'add_service' %}" enctype="multipart/form-data">
+                            {% csrf_token %}
+                            <div class="form-group row">
+                                <label for="name">Enter Your Name</label>
+                                    <input type="text" class="form-control" id="name" name="name" value="">
+                            </div>
+                            <div class="form-group">
+                                <label for="email">Enter Your Email</label>
+                                    <input type="email" class="form-control" id="email" name="email" value="">
+                            </div>
+                            <div class="form-group">
+                                <label for="phone">Enter Your Phone Number</label>
+                                    <input type="number" class="form-control" id="phone" name="phone" value="">
+                            </div>
+                            <div class="form-group">
+                                <label for="file">Upload Image</label>
+                                <input type="file" class="form-control" id="file" name="file" value="">
+                            </div>
+                            <button type="submit" class="btn btn-primary">Submit</button>
+                        </form>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <table class="table">
+            <thead>
+                <tr>
+                    <th scope="col">Sr No.</th>
+                    <th scope="col">Name</th>
+                    <th scope="col">Email</th>
+                    <th scope="col">Phone</th>
+                    <th scope="col">Image</th>
+                    <th scope="col">Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% if services %}
+                    {% for service in services %}
+                        <tr>
+                            <td>{{ forloop.counter }}</td>
+                            <td>{{ service.name }}</td>
+                            <td>{{ service.email }}</td>
+                            <td>{{ service.phone }}</td>
+                            <td>
+                                {% if service.file %}
+                                <img class="logo-css" src="{{ service.file.url }}" alt="My image">
+                                {% else %}
+                                    No file uploaded
+                                {% endif %}
+                            </td>
+                            <td>
+                                <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modal-{{ service.id }}">
+                                    Edit Form data
+                                </button>
+                                <div class="modal fade" id="modal-{{ service.id }}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                    <div class="modal-dialog" role="document">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <h5 class="modal-title" id="exampleModalLabel">Edit Service</h5>
+                                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                    <span aria-hidden="true">&times;</span>
+                                                </button>
+                                            </div>
+                                            <div class="modal-body">
+                                                <form method="post" action="{% url 'update_service' service.id %}" enctype="multipart/form-data">
+                                                    {% csrf_token %}
+                                                    <div class="form-group">
+                                                        <label for="name">Enter Your Name</label>
+                                                        <input type="text" class="form-control" id="name" name="name" value="{{ service.name }}">
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <label for="email">Enter Your Email</label>
+                                                        <input type="email" class="form-control" id="email" name="email" value="{{ service.email }}">
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <label for="phone">Enter Your Phone Number</label>
+                                                        <input type="text" class="form-control" id="phone" name="phone" value="{{ service.phone }}">
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <label for="file">Upload Image</label>
+                                                        <input type="file" class="form-control" id="file" name="file">
+                                                        {% if service.file %}
+                                                            <small>Current file: {{ service.file.name }}</small>
+                                                        {% endif %}
+                                                    </div>
+                                                    <button type="submit" class="btn btn-primary">Update</button>
+                                                </form>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </td>
+                            <td>
+                                <a href="{% url 'delete_service' service.id %}" class="btn btn-danger">Delete</a>
+                            </td>
+                        </tr>
+                    {% endfor %}
+                {% else %}
+                    <tr>
+                        <td colspan="5">No services found.</td>
+                    </tr>
+                {% endif %}
+            </tbody>
+        </table>
+    </div>
+{% endblock body %}
