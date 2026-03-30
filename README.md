@@ -23,3 +23,8 @@ This is a Django-based web application that performs full CRUD (Create, Read, Up
 - SMTP (Office365 for email)
 
 ---
+
+## 🛠️ Admin Details
+
+Username = tennis_club
+Password = Admin@12307862
